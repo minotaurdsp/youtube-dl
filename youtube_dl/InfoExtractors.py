@@ -590,6 +590,9 @@ class MetacafeIE(InfoExtractor):
 				self._downloader.trouble(u'ERROR: unable to extract media URL')
 				return
 			mobj = re.search(r'"mediaURL":"(http.*?)","key":"(.*?)"', vardict['mediaData'][0])
+                        if mobj is None:
+                                meddict = vardict['mediaData'][0].replace("[","")
+                                mobj = re.search(r'"mediaURL":"(http.*?)","access":{"key":"__gda__","value":"(.*?)"',meddict)
 			if mobj is None:
 				self._downloader.trouble(u'ERROR: unable to extract media URL')
 				return
